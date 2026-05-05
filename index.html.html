@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نموذج تقييم نضج إدارة الاستراتيجية والأداء</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;--teal-dark:#085041;
+  --navy:#042C53;--navy-mid:#185FA5;--navy-light:#E6F1FB;
+  --gold:#BA7517;--gold-light:#FAEEDA;--gold-mid:#EF9F27;
+  --gray-bg:#F4F4F0;--gray-50:#F1EFE8;--gray-100:#D3D1C7;--gray-400:#888780;--gray-600:#5F5E5A;
+  --white:#FFFFFF;--text:#2C2C2A;
+  --red-bg:#FCEBEB;--red-text:#791F1F;
+  --amber-bg:#FAEEDA;--amber-text:#633806;
+  --blue-bg:#E6F1FB;--blue-text:#0C447C;
+  --green-bg:#E1F5EE;--green-text:#085041;
+  --emerald-bg:#EAF3DE;--emerald-text:#27500A;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Tajawal',sans-serif;
+  direction:rtl;
+  background:var(--gray-bg);
+  color:var(--text);
+  min-height:100vh;
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* =================== LAYOUT =================== */
+.app{max-width:900px;margin:0 auto;padding:0 1rem 4rem}
+.screen{display:none}
+.screen.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* =================== TOPBAR =================== */
+.topbar{
+  background:var(--white);
+  border-bottom:1px solid var(--gray-100);
+  padding:0;
+  position:sticky;
+  top:0;
+  z-index:100;
+  margin-bottom:0;
+}
+.topbar-inner{
+  max-width:900px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem 1rem;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-icon{
+  width:36px;height:36px;background:var(--teal);
+  border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.brand-icon svg{width:20px;height:20px;fill:white}
+.brand-name{font-size:13px;font-weight:500;color:var(--teal);line-height:1.3}
+.brand-sub{font-size:11px;color:var(--gray-400)}
+.topbar-badge{
+  font-size:12px;background:var(--teal-light);color:var(--teal-dark);
+  padding:4px 14px;border-radius:20px;font-weight:500;
+}
+
+/* =================== PROGRESS =================== */
+.progress-bar{
+  background:var(--white);
+  border-bottom:1px solid var(--gray-100);
+  padding:.75rem 1rem;
+  display:none;
+}
+.progress-bar.show{display:block}
+.progress-bar-inner{max-width:900px;margin:0 auto}
+.prog-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.prog-label{font-size:12px;color:var(--gray-600)}
+.prog-pct{font-size:12px;font-weight:500;color:var(--teal)}
+.prog-track{height:5px;background:var(--gray-100);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:var(--teal);border-radius:99px;transition:width .5s ease}
+.prog-dots{display:flex;gap:5px;margin-top:8px}
+.pdot{flex:1;height:3px;background:var(--gray-100);border-radius:99px;transition:background .3s}
+.pdot.done{background:var(--teal)}
+.pdot.current{background:var(--gold-mid)}
+
+/* =================== PAGE PADDING =================== */
+.page-body{padding:1.5rem 0}
+
+/* =================== CARDS =================== */
+.card{
+  background:var(--white);
+  border:1px solid var(--gray-100);
+  border-radius:14px;
+  padding:1.5rem;
+}
+.card+.card{margin-top:12px}
+
+/* =================== BUTTONS =================== */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 24px;border-radius:10px;
+  font-family:'Tajawal',sans-serif;font-size:14px;font-weight:500;
+  cursor:pointer;border:none;transition:all .18s;white-space:nowrap;
+  text-decoration:none;
+}
+.btn-primary{background:var(--teal);color:white}
+.btn-primary:hover{background:var(--teal-mid)}
+.btn-primary:disabled{background:var(--gray-100);color:var(--gray-400);cursor:not-allowed}
+.btn-ghost{background:white;color:var(--gray-600);border:1px solid var(--gray-100)}
+.btn-ghost:hover{background:var(--gray-50)}
+.btn-lg{padding:14px 36px;font-size:16px;border-radius:12px}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem}
+
+/* =================== LANDING =================== */
+.hero{
+  background:var(--white);
+  border:1px solid var(--gray-100);
+  border-radius:18px;
+  padding:3.5rem 3rem;
+  text-align:center;
+  margin-top:1.5rem;
+}
+.hero-icon{
+  width:76px;height:76px;background:var(--teal);
+  border-radius:18px;margin:0 auto 1.75rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-icon svg{width:40px;height:40px;fill:white}
+.hero-title{font-size:22px;font-weight:700;color:var(--navy);margin-bottom:.6rem;line-height:1.4}
+.hero-desc{font-size:14px;color:var(--gray-600);line-height:1.85;max-width:540px;margin:0 auto 2.25rem}
+.stats-row{display:flex;justify-content:center;gap:1.25rem;margin-bottom:2.25rem;flex-wrap:wrap}
+.stat-box{
+  background:var(--gray-50);border:1px solid var(--gray-100);
+  border-radius:12px;padding:16px 22px;text-align:center;min-width:95px;
+}
+.stat-num{font-size:24px;font-weight:700;color:var(--teal);display:block}
+.stat-lbl{font-size:11px;color:var(--gray-600);margin-top:3px}
+.axes-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+  margin-bottom:2.25rem;text-align:right;
+}
+.axis-chip{
+  background:var(--teal-light);border:1px solid #9FE1CB;
+  border-radius:10px;padding:11px 13px;
+  display:flex;align-items:center;gap:9px;
+}
+.axis-num{
+  width:26px;height:26px;background:var(--teal);color:white;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;
+}
+.axis-chip-text{font-size:12px;color:var(--teal-dark);line-height:1.35}
+
+/* =================== ORG INFO =================== */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:13px;font-weight:500;color:var(--text)}
+.form-req{color:var(--teal)}
+.form-input{
+  padding:10px 13px;border:1px solid var(--gray-100);border-radius:9px;
+  font-family:'Tajawal',sans-serif;font-size:14px;color:var(--text);
+  background:white;outline:none;transition:border .2s;
+}
+.form-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(15,110,86,.08)}
+.form-hint{font-size:11px;color:var(--gray-400)}
+
+/* =================== AXIS HEADER =================== */
+.axis-header{
+  border-radius:14px;padding:1.2rem 1.6rem;
+  display:flex;align-items:center;gap:15px;margin-bottom:1rem;
+}
+.axis-header-num{
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(255,255,255,.22);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:700;color:white;flex-shrink:0;
+}
+.axis-header-title{font-size:17px;font-weight:700;color:white;line-height:1.3}
+.axis-header-sub{font-size:12px;color:rgba(255,255,255,.72);margin-top:3px}
+
+/* =================== QUESTION CARD =================== */
+.q-card{
+  background:white;border:1px solid var(--gray-100);
+  border-radius:14px;margin-bottom:10px;overflow:hidden;
+  transition:border-color .2s,box-shadow .2s;
+}
+.q-card.answered{border-color:var(--teal)}
+.q-header{
+  padding:1rem 1.3rem;
+  display:flex;align-items:flex-start;gap:11px;
+}
+.q-num{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  background:var(--teal-light);color:var(--teal-dark);
+  font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:1px;transition:all .2s;
+}
+.q-card.answered .q-num{background:var(--teal);color:white}
+.q-text{font-size:14px;line-height:1.75;color:var(--text);flex:1}
+.q-done{
+  font-size:10px;background:var(--teal-light);color:var(--teal-dark);
+  padding:3px 9px;border-radius:20px;flex-shrink:0;
+  display:none;margin-top:2px;
+}
+.q-card.answered .q-done{display:block}
+.q-options{padding:0 1.3rem 1rem}
+
+/* OPTION */
+.opt{
+  display:flex;align-items:flex-start;gap:11px;
+  padding:9px 12px;border:1px solid var(--gray-100);border-radius:10px;
+  margin-bottom:7px;cursor:pointer;transition:all .15s;background:white;
+}
+.opt:last-child{margin-bottom:0}
+.opt:hover{background:var(--teal-light);border-color:#9FE1CB}
+.opt.selected{background:var(--teal-light);border:1.5px solid var(--teal)}
+.opt-lvl{
+  width:30px;height:30px;border-radius:50%;flex-shrink:0;
+  background:var(--gray-50);border:1px solid var(--gray-100);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:var(--gray-600);
+  transition:all .15s;
+}
+.opt.selected .opt-lvl{background:var(--teal);border-color:var(--teal);color:white}
+.opt-body{flex:1}
+.opt-name{font-size:11px;font-weight:500;color:var(--gray-400);margin-bottom:2px;transition:color .15s}
+.opt.selected .opt-name{color:var(--teal-dark)}
+.opt-text{font-size:13.5px;color:var(--text);line-height:1.6;transition:color .15s}
+.opt.selected .opt-text{color:var(--teal-dark)}
+
+/* =================== REVIEW =================== */
+.review-row{
+  background:white;border:1px solid var(--gray-100);border-radius:12px;
+  padding:1rem 1.3rem;margin-bottom:8px;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+}
+.review-name{font-size:14px;font-weight:500;color:var(--text)}
+.review-meta{font-size:12px;color:var(--gray-400);margin-top:3px}
+.review-score{font-size:22px;font-weight:700;color:var(--teal);text-align:left}
+.review-score span{font-size:11px;color:var(--gray-400);font-weight:400}
+.tag-ok{font-size:10px;background:var(--teal-light);color:var(--teal-dark);padding:2px 9px;border-radius:20px}
+.tag-warn{font-size:10px;background:var(--red-bg);color:var(--red-text);padding:2px 9px;border-radius:20px}
+
+/* =================== RESULTS =================== */
+.results-hero{
+  background:var(--navy);border-radius:16px;padding:2.5rem;
+  text-align:center;margin-bottom:1rem;
+}
+.results-hero-lbl{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:6px}
+.results-score{font-size:56px;font-weight:700;color:white;line-height:1}
+.results-score-max{font-size:18px;color:rgba(255,255,255,.4)}
+.results-level-badge{
+  display:inline-block;margin-top:12px;
+  padding:6px 22px;border-radius:20px;font-size:13px;font-weight:500;
+}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.res-card{background:white;border:1px solid var(--gray-100);border-radius:14px;padding:1.2rem 1.3rem}
+.res-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;gap:8px}
+.res-card-name{font-size:13px;font-weight:500;color:var(--text);line-height:1.4}
+.res-card-score{font-size:22px;font-weight:700;flex-shrink:0}
+.res-bar-track{height:6px;background:var(--gray-100);border-radius:99px;overflow:hidden;margin-bottom:5px}
+.res-bar-fill{height:100%;border-radius:99px;transition:width .8s ease}
+.res-card-level{font-size:11px;font-weight:500}
+
+.legend-wrap{background:white;border:1px solid var(--gray-100);border-radius:14px;padding:1.3rem;margin-bottom:1.25rem}
+.legend-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:12px}
+.legend-row{display:flex;align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid var(--gray-50)}
+.legend-row:last-child{border-bottom:none}
+.legend-num{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.legend-name{font-size:13px;font-weight:500;color:var(--text);min-width:60px}
+.legend-desc{font-size:12.5px;color:var(--gray-600)}
+
+.results-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* =================== LOADING OVERLAY =================== */
+.loading-overlay{
+  position:fixed;inset:0;
+  background:rgba(4,44,83,.97);
+  z-index:9999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.75rem;
+  opacity:0;pointer-events:none;
+  transition:opacity .4s ease;
+}
+.loading-overlay.show{opacity:1;pointer-events:all}
+.loader-ring-wrap{position:relative;width:76px;height:76px}
+.loader-ring{
+  width:76px;height:76px;border-radius:50%;
+  border:3px solid rgba(29,158,117,.2);
+  border-top-color:#1D9E75;border-right-color:#1D9E75;
+  animation:spin 1s linear infinite;
+  position:absolute;inset:0;
+}
+.loader-ring-inner{
+  width:52px;height:52px;border-radius:50%;
+  border:2px solid rgba(29,158,117,.1);
+  border-bottom-color:#1D9E75;
+  animation:spin .7s linear infinite reverse;
+  position:absolute;top:12px;left:12px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-center-icon{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+}
+.loader-center-icon svg{width:24px;height:24px;fill:#1D9E75;animation:heartbeat 1.4s ease-in-out infinite}
+@keyframes heartbeat{0%,100%{transform:scale(.9);opacity:.7}50%{transform:scale(1.1);opacity:1}}
+.loader-text{text-align:center}
+.loader-title{font-size:18px;font-weight:700;color:#fff;margin-bottom:6px}
+.loader-sub{font-size:13px;color:rgba(255,255,255,.5);line-height:1.65}
+.loader-prog-wrap{width:220px}
+.loader-prog-track{
+  height:3px;background:rgba(255,255,255,.1);
+  border-radius:99px;overflow:hidden;margin-bottom:8px;
+}
+.loader-prog-fill{
+  height:100%;background:#1D9E75;border-radius:99px;width:0%;
+  transition:width .12s ease;
+}
+.loader-prog-pct{font-size:11px;color:rgba(255,255,255,.4);text-align:center}
+
+/* =================== PDF BUTTON =================== */
+.btn-pdf{
+  background:var(--navy);color:white;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-pdf:hover{background:#0a3d6e}
+.btn-pdf svg{width:16px;height:16px;fill:white;flex-shrink:0}
+.btn-pdf.loading{opacity:.6;pointer-events:none}
+
+/* =================== TOAST NOTIFICATION =================== */
+.toast{
+  position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);
+  background:#1e1e1e;color:white;
+  padding:12px 20px;border-radius:10px;
+  font-size:13px;font-weight:500;
+  display:flex;align-items:center;gap:10px;
+  opacity:0;transition:all .3s ease;
+  z-index:999;pointer-events:none;white-space:nowrap;
+  box-shadow:0 4px 20px rgba(0,0,0,.2);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.error{background:#791F1F}
+.toast.warning{background:#633806}
+.toast.success{background:#085041}
+.toast-icon{width:18px;height:18px;flex-shrink:0}
+
+/* =================== FIELD ERROR =================== */
+.form-input.error{border-color:#E24B4A;background:#FFFAFA}
+.field-error{font-size:11px;color:#791F1F;margin-top:4px;display:none}
+.field-error.show{display:block}
+
+/* =================== Q-CARD UNANSWERED HIGHLIGHT =================== */
+.q-card.unanswered{border-color:#E24B4A;animation:shake .4s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.q-card.unanswered .q-num{background:#FCEBEB;color:#791F1F}
+
+/* =================== NAV BTN NEXT DISABLED STATE =================== */
+.btn-next-warn{background:var(--teal);color:white;position:relative}
+
+/* =================== RESPONSIVE =================== */
+@media(max-width:640px){
+  .axes-grid{grid-template-columns:1fr 1fr}
+  .form-grid{grid-template-columns:1fr}
+  .res-grid{grid-template-columns:1fr}
+  .hero{padding:2.5rem 1.5rem}
+  .stats-row{gap:.75rem}
+}
+@media(max-width:400px){
+  .axes-grid{grid-template-columns:1fr}
+  .hero{padding:2rem 1rem}
+}
+
+/* print */
+@media print{
+  .topbar,.progress-bar,.nav-row{display:none!important}
+  .screen{display:block!important}
+  body{background:white}
+}
+</style>
+</head>
+<body>
+
+<!-- ======= TOPBAR ======= -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">أداة تقييم النضج المؤسسي</div>
+        <div class="brand-sub">إدارة الاستراتيجية والأداء</div>
+      </div>
+    </div>
+    <div class="topbar-badge" id="top-badge">التقييم المبدئي</div>
+  </div>
+</div>
+
+<!-- ======= PROGRESS BAR ======= -->
+<div class="progress-bar" id="progress-bar">
+  <div class="progress-bar-inner">
+    <div class="prog-meta">
+      <span class="prog-label" id="prog-label">المحور 1 من 6</span>
+      <span class="prog-pct" id="prog-pct">17%</span>
+    </div>
+    <div class="prog-track">
+      <div class="prog-fill" id="prog-fill" style="width:17%"></div>
+    </div>
+    <div class="prog-dots" id="prog-dots">
+      <div class="pdot current"></div>
+      <div class="pdot"></div>
+      <div class="pdot"></div>
+      <div class="pdot"></div>
+      <div class="pdot"></div>
+      <div class="pdot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======= TOAST ======= -->
+<div class="toast" id="toast">
+  <svg class="toast-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+  <span id="toast-msg"></span>
+</div>
+
+<!-- ======= LOADING OVERLAY ======= -->
+<div class="loading-overlay" id="loading-overlay">
+  <div class="loader-ring-wrap">
+    <div class="loader-ring"></div>
+    <div class="loader-ring-inner"></div>
+    <div class="loader-center-icon">
+      <svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+    </div>
+  </div>
+  <div class="loader-text">
+    <div class="loader-title">جاري تحليل النتائج</div>
+    <div class="loader-sub">يرجى الانتظار، يتم الآن احتساب مستوى النضج</div>
+  </div>
+  <div class="loader-prog-wrap">
+    <div class="loader-prog-track">
+      <div class="loader-prog-fill" id="loader-prog-fill"></div>
+    </div>
+    <div class="loader-prog-pct" id="loader-prog-pct">0%</div>
+  </div>
+</div>
+
+<!-- ======= APP ======= -->
+<div class="app">
+<div class="page-body">
+
+<!-- ===== SCREEN: LANDING ===== -->
+<div class="screen active" id="s-landing">
+  <div class="hero">
+    <div class="hero-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+      </svg>
+    </div>
+    <div class="hero-title">نموذج تقييم نضج<br>إدارة الاستراتيجية والأداء</div>
+    <div class="hero-desc">يهدف هذا النموذج إلى تمكين الجهة من تشخيص مستوى نضج ممارسات إدارة الاستراتيجية وإدارة الأداء لديها، وتحديد الفجوات وفرص التحسين. يتضمن ستة محاور شاملة تغطي 24 سؤالاً تقييمياً بمقياس من 1 إلى 5 لكل سؤال.</div>
+    <div class="stats-row">
+      <div class="stat-box"><span class="stat-num">٦</span><span class="stat-lbl">محاور تقييمية</span></div>
+      <div class="stat-box"><span class="stat-num">٢٤</span><span class="stat-lbl">سؤالاً</span></div>
+      <div class="stat-box"><span class="stat-num">١–٥</span><span class="stat-lbl">مقياس النضج</span></div>
+      <div class="stat-box"><span class="stat-num">٣٠</span><span class="stat-lbl">دقيقة تقريباً</span></div>
+    </div>
+    <div class="axes-grid">
+      <div class="axis-chip"><div class="axis-num">١</div><div class="axis-chip-text">إدارة التخطيط الاستراتيجي</div></div>
+      <div class="axis-chip"><div class="axis-num">٢</div><div class="axis-chip-text">إدارة قياس الأداء</div></div>
+      <div class="axis-chip"><div class="axis-num">٣</div><div class="axis-chip-text">إدارة الأداء</div></div>
+      <div class="axis-chip"><div class="axis-num">٤</div><div class="axis-chip-text">إدارة المواءمة الأفقية والرأسية</div></div>
+      <div class="axis-chip"><div class="axis-num">٥</div><div class="axis-chip-text">ثقافة الأداء والتمكين</div></div>
+      <div class="axis-chip"><div class="axis-num">٦</div><div class="axis-chip-text">إدارة أداء الموظفين</div></div>
+    </div>
+    <button class="btn btn-primary btn-lg" onclick="goTo('s-info')">ابدأ التقييم ←</button>
+  </div>
+</div>
+
+<!-- ===== SCREEN: ORG INFO ===== -->
+<div class="screen" id="s-info">
+  <div class="card">
+    <div style="margin-bottom:1.5rem">
+      <div style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:5px">بيانات الجهة</div>
+      <div style="font-size:13px;color:var(--gray-600)">يُرجى تعبئة البيانات التالية قبل البدء في التقييم</div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label"><span class="form-req">*</span> اسم الجهة</label>
+        <input class="form-input" id="f-org" type="text" placeholder="مثال: وزارة الموارد البشرية" oninput="checkForm()" onblur="validateField('f-org','err-org')">
+        <span class="field-error" id="err-org">هذا الحقل مطلوب</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label"><span class="form-req">*</span> ممثل الجهة</label>
+        <input class="form-input" id="f-rep" type="text" placeholder="الاسم الكامل" oninput="checkForm()" onblur="validateField('f-rep','err-rep')">
+        <span class="field-error" id="err-rep">هذا الحقل مطلوب</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label"><span class="form-req">*</span> البريد الإلكتروني</label>
+        <input class="form-input" id="f-mail" type="email" placeholder="example@org.gov.sa" oninput="checkForm()" onblur="validateEmail()">
+        <span class="field-error" id="err-mail">يُرجى إدخال بريد إلكتروني صحيح</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">تاريخ التعبئة</label>
+        <input class="form-input" id="f-date" type="date">
+      </div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="goTo('s-landing')">← رجوع</button>
+    <button class="btn btn-primary" id="btn-start" onclick="tryStart()" disabled>ابدأ التقييم ←</button>
+  </div>
+</div>
+
+<!-- ===== SCREENS: AXES 0–5 ===== -->
+<div class="screen" id="s-ax-0">
+  <div class="axis-header" style="background:var(--teal)">
+    <div class="axis-header-num">١</div>
+    <div>
+      <div class="axis-header-title">إدارة التخطيط الاستراتيجي</div>
+      <div class="axis-header-sub">الأسئلة ١ إلى ٤ &nbsp;·&nbsp; اختر العبارة الأنسب لواقع جهتك</div>
+    </div>
+  </div>
+  <div id="qs-0"></div>
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="goTo('s-info')">← رجوع</button>
+    <button class="btn btn-primary" onclick="nextAxis(0,'s-ax-1')">التالي: قياس الأداء ←</button>
+  </div>
+</div>
+
+<div class="screen" id="s-ax-1">
+  <div class="axis-header" style="background:var(--navy-mid)">
+    <div class="axis-header-num">٢</div>
+    <div>
+      <div class="axis-header-title">إدارة قياس الأداء</div>
+      <div class="axis-header-sub">الأسئلة ٥ إلى ٨ &nbsp;·&nbsp; اختر العبارة الأنسب لواقع جهتك</div>
+    </div>
+  </div>
+  <div id="qs-1"></div>
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="goTo('s-ax-0')">← رجوع</button>
+    <button class="btn btn-primary" onclick="nextAxis(1,'s-ax-2')">التالي: إدارة الأداء ←</button>
+  </div>
+</div>
+
+<div class="screen" id="s-ax-2">
+  <div class="axis-header" style="background:#0c4a6e">
+    <div class="axis-header-num">٣</div>
+    <div>
+      <div class="axis-header-title">إدارة الأداء</div>
+      <div class="axis-header-sub">الأسئلة ٩ إلى ١٢ &nbsp;·&nbsp; اختر العبارة الأنسب لواقع جهتك</div>
+    </div>
+  </div>
+  <div id="qs-2"></div>
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="goTo('s-ax-1')">← رجوع</button>
+    <button class="btn btn-primary" onclick="nextAxis(2,'s-ax-3')">التالي: المواءمة ←</button>
+  </div>
+</div>
+
+<div class="screen" id="s-ax-3">
+  <div class="axis-header" style="background:#6b21a8">
+    <div class="axis-header-num">٤</div>
+    <div>
+      <div class="axis-header-title">إدارة المواءمة الأفقية والرأسية</div>
+      <div class="axis-header-sub">الأسئلة ١٣ إلى ١٦ &nbsp;·&nbsp; اختر العبارة الأنسب لواقع جهتك</div>
+    </div>
+  </div>
+  <div id="qs-3"></div>
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="goTo('s-ax-2')">← رجوع</button>
+    <button class="btn btn-primary" onclick="nextAxis(3,'s-ax-4')">التالي: ثقافة الأداء ←</button>
+  </div>
+</div>
+
+<div class="screen" id="s-ax-4">
+  <div class="axis-header" style="background:#854d0e">
+    <div class="axis-header-num">٥</div>
+    <div>
+      <div class="axis-header-title">ثقافة الأداء والتمكين</div>
+      <div class="axis-header-sub">الأسئلة ١٧ إلى ٢٠ &nbsp;·&nbsp; اختر العبارة الأنسب لواقع جهتك</div>
+    </div>
+  </div>
+  <div id="qs-4"></div>
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="goTo('s-ax-3')">← رجوع</button>
+    <button class="btn btn-primary" onclick="nextAxis(4,'s-ax-5')">التالي: أداء الموظفين ←</button>
+  </div>
+</div>
+
+<div class="screen" id="s-ax-5">
+  <div class="axis-header" style="background:#9f1239">
+    <div class="axis-header-num">٦</div>
+    <div>
+      <div class="axis-header-title">إدارة أداء الموظفين</div>
+      <div class="axis-header-sub">الأسئلة ٢١ إلى ٢٤ &nbsp;·&nbsp; اختر العبارة الأنسب لواقع جهتك</div>
+    </div>
+  </div>
+  <div id="qs-5"></div>
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="goTo('s-ax-4')">← رجوع</button>
+    <button class="btn btn-primary" onclick="nextAxis(5,'s-review')">مراجعة الإجابات ←</button>
+  </div>
+</div>
+
+<!-- ===== SCREEN: REVIEW ===== -->
+<div class="screen" id="s-review">
+  <div class="card" style="margin-bottom:12px">
+    <div style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:4px">مراجعة الإجابات</div>
+    <div style="font-size:13px;color:var(--gray-600)">تحقق من اكتمال إجاباتك قبل عرض النتائج النهائية</div>
+  </div>
+  <div id="review-content"></div>
+  <div class="nav-row">
+    <button class="btn btn-ghost" onclick="goTo('s-ax-5')">← تعديل</button>
+    <button class="btn btn-primary" onclick="showResults()">عرض النتائج ←</button>
+  </div>
+</div>
+
+<!-- ===== SCREEN: RESULTS ===== -->
+<div class="screen" id="s-results">
+  <div class="results-hero">
+    <div class="results-hero-lbl">المتوسط العام لمستوى النضج</div>
+    <div>
+      <span class="results-score" id="r-score">—</span>
+      <span class="results-score-max">/5</span>
+    </div>
+    <div class="results-level-badge" id="r-badge">—</div>
+  </div>
+  <div class="res-grid" id="r-grid"></div>
+  <div class="legend-wrap">
+    <div class="legend-title">دليل تفسير مستويات النضج</div>
+    <div class="legend-row">
+      <div class="legend-num" style="background:var(--red-bg);color:var(--red-text)">١</div>
+      <div class="legend-name">مبدئي</div>
+      <div class="legend-desc">لا توجد ممارسات رسمية أو جهود فردية متفرقة</div>
+    </div>
+    <div class="legend-row">
+      <div class="legend-num" style="background:var(--amber-bg);color:var(--amber-text)">٢</div>
+      <div class="legend-name">متكرر</div>
+      <div class="legend-desc">ممارسات غير رسمية تعتمد على الجهود الفردية</div>
+    </div>
+    <div class="legend-row">
+      <div class="legend-num" style="background:var(--blue-bg);color:var(--blue-text)">٣</div>
+      <div class="legend-name">محدد</div>
+      <div class="legend-desc">عمليات موثقة ومطبقة على مستوى الجهة</div>
+    </div>
+    <div class="legend-row">
+      <div class="legend-num" style="background:var(--green-bg);color:var(--green-text)">٤</div>
+      <div class="legend-name">مُدار</div>
+      <div class="legend-desc">قياس وتحليل مستمر لدعم اتخاذ القرار</div>
+    </div>
+    <div class="legend-row">
+      <div class="legend-num" style="background:var(--emerald-bg);color:var(--emerald-text)">٥</div>
+      <div class="legend-name">متقن</div>
+      <div class="legend-desc">تحسين مستمر مرتبط بالأهداف الاستراتيجية</div>
+    </div>
+  </div>
+  <div class="results-actions">
+    <button class="btn btn-ghost" onclick="goTo('s-review')">← مراجعة</button>
+    <button class="btn btn-pdf" id="btn-pdf" onclick="downloadPDF()">
+      <svg viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      تحميل التقرير (PDF)
+    </button>
+  </div>
+</div>
+
+</div><!-- /page-body -->
+</div><!-- /app -->
+
+<script>
+// =================== DATA ===================
+const AXES = [
+  {name:"إدارة التخطيط الاستراتيجي",   color:"#0F6E56"},
+  {name:"إدارة قياس الأداء",             color:"#185FA5"},
+  {name:"إدارة الأداء",                  color:"#0c4a6e"},
+  {name:"إدارة المواءمة الأفقية والرأسية",color:"#6b21a8"},
+  {name:"ثقافة الأداء والتمكين",         color:"#854d0e"},
+  {name:"إدارة أداء الموظفين",           color:"#9f1239"}
+];
+
+const LVL = ["مبدئي","متكرر","محدد","مُدار","متقن"];
+const LVL_TEXT = ["#791F1F","#633806","#0C447C","#085041","#27500A"];
+const LVL_BG   = ["#FCEBEB","#FAEEDA","#E6F1FB","#E1F5EE","#EAF3DE"];
+const LVL_BAR  = ["#E24B4A","#EF9F27","#378ADD","#1D9E75","#639922"];
+
+const QUESTIONS = [
+  {q:"أيٌّ من العبارات التالية تصف وضع الجهة فيما يتعلق ببناء الاستراتيجية؟", opts:["لا توجد منهجية واضحة لبناء الاستراتيجية ويتم إعدادها بشكل غير منظم.","يتم إعداد الاستراتيجية بشكل جزئي دون اعتماد أدوات تحليل منهجية واضحة.","يتم بناء الاستراتيجية باستخدام أدوات تحليل معروفة ولكن دون توحيد أو توثيق كامل.","يتم تطوير الاستراتيجية وفق منهجية معتمدة وأدوات تحليل واضحة ومطبقة بانتظام.","يتم تطوير الاستراتيجية وفق إطار متكامل يعتمد على تحليل منهجي شامل ويتم تحسينه باستمرار."]},
+  {q:"أيٌّ من العبارات التالية تصف وضوح مكونات الاستراتيجية (الرؤية، الرسالة، القيم، الأهداف)؟", opts:["غير واضحة أو غير مكتملة.","موجودة ولكن غير مترابطة أو غير محددة.","واضحة ومترابطة ولكن لا يتم مراجعتها بانتظام.","واضحة ومترابطة ومعتمدة ويتم مراجعتها دورياً.","متكاملة ومترابطة ويتم تحديثها وتحسينها بشكل منهجي مستمر."]},
+  {q:"أيٌّ من العبارات التالية تصف تحديد الأهداف الاستراتيجية؟", opts:["غير محددة بوضوح أو غير قابلة للقياس.","محددة ولكن دون مؤشرات أداء واضحة.","مرتبطة بمؤشرات أداء ولكن دون تكامل كامل.","قابلة للقياس ومرتبطة بمؤشرات واضحة ومعتمدة.","محددة بمنهجية واضحة ومترابطة مع مؤشرات أداء ومراجعة دورية."]},
+  {q:"أيٌّ من العبارات التالية تصف آلية مراجعة وتحديث الاستراتيجية؟", opts:["لا توجد آلية مراجعة واضحة.","تتم المراجعة بشكل غير منتظم.","تتم مراجعة دورية ولكن دون إطار رسمي واضح.","توجد آلية رسمية ومعتمدة للمراجعة والتحديث.","توجد آلية مؤسسية متكاملة للمراجعة والتحسين المستمر بناءً على البيانات والأداء."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع تصميم مؤشرات الأداء؟", opts:["لا توجد مؤشرات أداء واضحة.","توجد مؤشرات ولكن دون منهجية تصميم واضحة.","يتم تصميم المؤشرات وفق منهجية محددة ولكن دون توحيد كامل.","يتم تصميم المؤشرات وفق إطار معتمد وتصنيف واضح للمستويات.","يتم تصميم المؤشرات وفق إطار متكامل ومراجع دورياً لضمان الملاءمة."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع تحديد مستهدفات مؤشرات الأداء؟", opts:["لا توجد مستهدفات محددة.","يتم تحديد المستهدفات دون تحليل واضح.","يتم تحديد المستهدفات بناءً على بيانات جزئية.","يتم تحديد المستهدفات بناءً على تحليل داخلي وخارجي موثق.","يتم تحديد المستهدفات وفق تحليل متقدم ومقارنات معيارية دورية."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع ملكية مؤشرات الأداء ولوحات القياس؟", opts:["لا يوجد مالك واضح للمؤشرات.","يوجد مالك ولكن دون مساءلة واضحة.","توجد ملكية محددة ولكن المتابعة غير منتظمة.","يوجد مالك واضح ويتم المتابعة بشكل دوري.","توجد مساءلة واضحة ومتكاملة مع تقارير ولوحات قياس محدّثة باستمرار."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع مراجعة فعالية مؤشرات الأداء؟", opts:["لا تتم مراجعة المؤشرات.","تتم مراجعة غير منتظمة.","تتم مراجعة دورية ولكن دون تحديث فعلي.","تتم مراجعة وتحديث المؤشرات وفق آلية واضحة.","تتم مراجعة وتحسين المؤشرات باستمرار بناءً على التحليل والتغذية الراجعة."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع جمع وتحليل بيانات الأداء؟", opts:["لا توجد آلية واضحة لجمع البيانات.","يتم جمع البيانات بشكل غير منظم.","يتم جمع البيانات وفق جدول محدد ولكن التحليل محدود.","يتم جمع وتحليل البيانات وفق آلية موثقة ومعتمدة.","يتم جمع وتحليل البيانات باستخدام أدوات رقمية وتحليلات متقدمة."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع تقارير الأداء؟", opts:["لا توجد تقارير أداء منتظمة.","توجد تقارير ولكن دون تحليلات واضحة.","توجد تقارير دورية مع تحليلات أساسية.","تقارير دورية تحتوي تحليلات تدعم اتخاذ القرار.","تقارير متقدمة تركز على التحليل التنبؤي ودعم القرارات الاستراتيجية."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع استخدام نتائج الأداء؟", opts:["لا يتم استخدام النتائج في اتخاذ القرار.","يتم استخدامها بشكل محدود.","يتم استخدامها أحياناً لاتخاذ قرارات تصحيحية.","يتم استخدامها بشكل منهجي لاتخاذ قرارات وتحسينات واضحة.","يتم دمج نتائج الأداء في صنع القرار الاستراتيجي والتحسين المستمر."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع اجتماعات مراجعة الأداء؟", opts:["لا تعقد اجتماعات منتظمة.","تعقد بشكل غير منتظم.","تعقد اجتماعات دورية ولكن دون متابعة واضحة للقرارات.","تعقد اجتماعات دورية مع توثيق ومتابعة.","تعقد اجتماعات مؤسسية قائمة على بيانات دقيقة وتنتج عنها قرارات استراتيجية واضحة."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع ربط المبادرات بالأهداف الاستراتيجية؟", opts:["لا يوجد ربط واضح.","يوجد ربط جزئي وغير موثق.","يوجد ربط واضح ولكن دون آلية تحقق منتظمة.","يتم الربط ضمن إطار معتمد ومراجع دورياً.","يتم الربط والتحقق منه رقمياً وبشكل متكامل مع إدارة المحافظ."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع ترتيب أولويات المبادرات؟", opts:["لا توجد معايير واضحة للأولوية.","توجد معايير غير موحدة.","توجد معايير معتمدة ولكن التطبيق غير منتظم.","يتم ترتيب الأولويات وفق معايير واضحة ومعتمدة.","يتم ترتيب الأولويات وفق نموذج تحليلي متكامل يراجَع دورياً."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع مواءمة المؤشرات بين المستويات المختلفة؟", opts:["لا توجد مواءمة واضحة.","توجد مواءمة جزئية.","توجد مواءمة واضحة ولكن دون مراجعة منتظمة.","توجد مواءمة رسمية ومراجعة دورية.","توجد مواءمة متكاملة رقمية تضمن الاتساق الكامل بين جميع المستويات."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع مراجعة وتحسين مواءمة الاستراتيجية؟", opts:["لا تتم مراجعة المواءمة.","تتم مراجعة محدودة وغير منتظمة.","تتم مراجعة دورية دون إجراءات تحسين واضحة.","تتم مراجعة دورية مع إجراءات تحسين محددة.","تتم مراجعة وتحسين المواءمة بشكل استباقي ومتكامل."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع الوعي المؤسسي بالأداء؟", opts:["لا يوجد وعي واضح بالأداء.","يوجد وعي محدود لدى بعض الإدارات.","يوجد وعي عام ولكن دون تكامل كامل.","يوجد وعي مؤسسي واضح وممارس.","توجد ثقافة أداء راسخة ومدعومة بقيادة فعالة."]},
+  {q:"أيٌّ من العبارات التالية تصف واقع تدريب الموظفين على الاستراتيجية ومؤشرات الأداء؟", opts:["لا يتم التدريب.","يتم تدريب محدود وغير منتظم.","يتم تدريب دوري لبعض الفئات.","يتم تدريب شامل ومنهجي.","يتم تمكين مستمر مرتبط بقياس الأثر."]},
+  {q:"أيٌّ من العبارات التالية تصف أدوار ومسؤوليات إدارة الأداء المؤسسي؟", opts:["غير واضحة.","محددة بشكل جزئي.","واضحة ولكن دون متابعة فعالة.","واضحة ومفعّلة ومتابعة.","واضحة ومتكاملة ضمن هيكل تنظيمي داعم للأداء."]},
+  {q:"أيٌّ من العبارات التالية تصف قياس أثر ثقافة الأداء؟", opts:["لا يتم قياس الأثر.","يتم قياس محدود وغير منتظم.","يتم قياس دوري دون تحليل متعمق.","يتم قياس وتحليل الأثر بشكل منهجي.","يتم قياس الأثر وربطه مباشرة بتحسين النتائج الاستراتيجية."]},
+  {q:"أيٌّ من العبارات التالية تصف آلية تحديد أهداف الأداء الفردي وربطها بالاستراتيجية؟", opts:["لا توجد أهداف فردية مرتبطة بالاستراتيجية.","توجد أهداف فردية ولكن دون ربط واضح بالاستراتيجية.","يتم تحديد أهداف فردية مرتبطة بالاستراتيجية ولكن دون آلية موحدة.","يتم تحديد أهداف فردية مرتبطة بالاستراتيجية وفق آلية معتمدة.","يتم تحديد أهداف فردية متكاملة مع الاستراتيجية ومراجعتها دورياً بشكل منهجي."]},
+  {q:"أيٌّ من العبارات التالية تصف دورة تقييم أداء الموظفين (التوقيت والمعايير والموضوعية)؟", opts:["لا يتم إجراء تقييم رسمي للأداء.","يتم التقييم بشكل غير منتظم ودون معايير واضحة.","يتم التقييم دورياً ولكن بمعايير جزئية وغير موحدة.","يتم التقييم وفق دورة معتمدة ومعايير واضحة وموضوعية.","يتم التقييم وفق دورة متكاملة بمعايير موضوعية مرتبطة بالأهداف الاستراتيجية وتُطوَّر باستمرار."]},
+  {q:"أيٌّ من العبارات التالية تصف ربط نتائج التقييم بقرارات التطوير والمسار الوظيفي؟", opts:["لا يتم ربط نتائج التقييم بأي قرارات تطوير.","يتم الربط بشكل محدود وغير منتظم.","يتم الربط أحياناً لاتخاذ بعض قرارات التطوير.","يتم الربط بشكل منهجي لتحديد خطط تطوير واضحة.","يتم الربط بشكل متكامل وشامل بين نتائج التقييم وقرارات التطوير والمسار الوظيفي والتخطيط للخلافة."]},
+  {q:"أيٌّ من العبارات التالية تصف ربط الأداء الفردي بمنظومة الحوافز والمكافآت؟", opts:["لا يوجد ربط بين الأداء الفردي والحوافز.","يوجد ربط جزئي وغير واضح.","يتم الربط وفق معايير عامة غير تفصيلية.","يتم الربط وفق آلية واضحة ومعتمدة.","يتم الربط بشكل متكامل ومنهجي مع مراجعة دورية لضمان العدالة والفعالية."]}
+];
+
+// =================== STATE ===================
+let answers = new Array(24).fill(0);
+const rendered = new Set();
+
+// =================== TOAST ===================
+let toastTimer = null;
+function showToast(msg, type = 'error') {
+  const t = document.getElementById('toast');
+  const m = document.getElementById('toast-msg');
+  clearTimeout(toastTimer);
+  t.className = 'toast ' + type;
+  m.textContent = msg;
+  t.classList.add('show');
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// =================== ROUTING ===================
+const SCREEN_IDS = ['s-landing','s-info','s-ax-0','s-ax-1','s-ax-2','s-ax-3','s-ax-4','s-ax-5','s-review','s-results'];
+const BADGE_LABELS = ['التقييم المبدئي','بيانات الجهة','المحور ١: التخطيط','المحور ٢: قياس الأداء','المحور ٣: إدارة الأداء','المحور ٤: المواءمة','المحور ٥: ثقافة الأداء','المحور ٦: أداء الموظفين','مراجعة الإجابات','النتائج النهائية'];
+
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+
+  const idx = SCREEN_IDS.indexOf(id);
+  document.getElementById('top-badge').textContent = BADGE_LABELS[idx] || '';
+
+  const pb = document.getElementById('progress-bar');
+  if (idx >= 2 && idx <= 7) {
+    pb.classList.add('show');
+    const ai = idx - 2;
+    const pct = Math.round(((ai + 1) / 6) * 100);
+    document.getElementById('prog-label').textContent = 'المحور ' + (ai+1) + ' من ٦';
+    document.getElementById('prog-pct').textContent = pct + '%';
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.querySelectorAll('.pdot').forEach((d, i) => {
+      d.className = 'pdot' + (i < ai ? ' done' : i === ai ? ' current' : '');
+    });
+    if (!rendered.has(ai)) { renderAxis(ai); rendered.add(ai); }
+  } else if (id === 's-review') {
+    pb.classList.add('show');
+    document.getElementById('prog-label').textContent = 'اكتمل التقييم';
+    document.getElementById('prog-pct').textContent = '100%';
+    document.getElementById('prog-fill').style.width = '100%';
+    document.querySelectorAll('.pdot').forEach(d => d.className = 'pdot done');
+    renderReview();
+  } else {
+    pb.classList.remove('show');
+  }
+}
+
+// =================== AXIS NAVIGATION WITH VALIDATION ===================
+function nextAxis(ai, nextScreen) {
+  const start = ai * 4;
+  const unanswered = [];
+  for (let i = 0; i < 4; i++) {
+    if (answers[start + i] === 0) unanswered.push(start + i);
+  }
+
+  if (unanswered.length > 0) {
+    // highlight unanswered cards
+    unanswered.forEach(gi => {
+      const card = document.getElementById('qc-' + gi);
+      if (card) {
+        card.classList.remove('unanswered');
+        void card.offsetWidth; // force reflow for animation replay
+        card.classList.add('unanswered');
+        setTimeout(() => card.classList.remove('unanswered'), 1500);
+      }
+    });
+
+    const msg = unanswered.length === 4
+      ? 'يُرجى الإجابة على جميع أسئلة هذا المحور'
+      : `يُرجى الإجابة على ${unanswered.length} سؤال متبقٍ في هذا المحور`;
+
+    showToast(msg, 'error');
+
+    // scroll to first unanswered
+    const firstCard = document.getElementById('qc-' + unanswered[0]);
+    if (firstCard) firstCard.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  goTo(nextScreen);
+}
+
+// =================== RENDER QUESTIONS ===================
+function renderAxis(ai) {
+  const container = document.getElementById('qs-' + ai);
+  const start = ai * 4;
+  container.innerHTML = QUESTIONS.slice(start, start + 4).map((d, qi) => {
+    const gi = start + qi;
+    const opts = d.opts.map((text, i) => {
+      const v = i + 1;
+      const sel = answers[gi] === v ? 'selected' : '';
+      return `<div class="opt ${sel}" id="opt-${gi}-${v}" onclick="pick(${gi},${v})">
+        <div class="opt-lvl">${v}</div>
+        <div class="opt-body">
+          <div class="opt-name">${LVL[i]}</div>
+          <div class="opt-text">${text}</div>
+        </div>
+      </div>`;
+    }).join('');
+    const done = answers[gi] > 0 ? 'answered' : '';
+    return `<div class="q-card ${done}" id="qc-${gi}">
+      <div class="q-header">
+        <div class="q-num">${gi + 1}</div>
+        <div class="q-text">${d.q}</div>
+        <div class="q-done">✓ تمت الإجابة</div>
+      </div>
+      <div class="q-options">${opts}</div>
+    </div>`;
+  }).join('');
+}
+
+function pick(gi, v) {
+  answers[gi] = v;
+  const card = document.getElementById('qc-' + gi);
+  card.classList.add('answered');
+  card.classList.remove('unanswered');
+  for (let i = 1; i <= 5; i++) {
+    const el = document.getElementById('opt-' + gi + '-' + i);
+    if (el) el.className = 'opt' + (i === v ? ' selected' : '');
+  }
+}
+
+// =================== FORM VALIDATION ===================
+function validateField(fieldId, errId) {
+  const input = document.getElementById(fieldId);
+  const err = document.getElementById(errId);
+  const empty = !input.value.trim();
+  input.classList.toggle('error', empty);
+  err.classList.toggle('show', empty);
+  return !empty;
+}
+
+function validateEmail() {
+  const input = document.getElementById('f-mail');
+  const err = document.getElementById('err-mail');
+  const val = input.value.trim();
+  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+  const bad = val.length > 0 && !valid;
+  const empty = val.length === 0;
+  input.classList.toggle('error', bad || empty);
+  if (empty) err.textContent = 'هذا الحقل مطلوب';
+  else if (bad) err.textContent = 'يُرجى إدخال بريد إلكتروني صحيح';
+  err.classList.toggle('show', bad || empty);
+  return valid && !empty;
+}
+
+function checkForm() {
+  const orgOk = document.getElementById('f-org').value.trim().length > 0;
+  const repOk = document.getElementById('f-rep').value.trim().length > 0;
+  const mail = document.getElementById('f-mail').value.trim();
+  const mailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
+  const ok = orgOk && repOk && mailOk;
+  const btn = document.getElementById('btn-start');
+  btn.disabled = !ok;
+  btn.style.opacity = ok ? '1' : '0.4';
+}
+
+// override the btn click to show field errors on submit attempt
+function tryStart() {
+  const orgOk = validateField('f-org', 'err-org');
+  const repOk = validateField('f-rep', 'err-rep');
+  const mailOk = validateEmail();
+  if (!orgOk || !repOk || !mailOk) {
+    showToast('يُرجى إكمال جميع الحقول المطلوبة', 'error');
+    return;
+  }
+  goTo('s-ax-0');
+}
+
+// =================== REVIEW ===================
+function renderReview() {
+  document.getElementById('review-content').innerHTML = AXES.map((ax, ai) => {
+    const start = ai * 4;
+    const vals = answers.slice(start, start + 4).filter(v => v > 0);
+    const avg = vals.length ? (vals.reduce((a,b) => a+b, 0) / vals.length) : 0;
+    const done = vals.length;
+    const complete = done === 4;
+    return `<div class="review-row">
+      <div>
+        <div class="review-name">${ax.name}</div>
+        <div style="margin-top:4px">
+          ${complete
+            ? `<span class="tag-ok">✓ مكتمل — ٤/٤ أسئلة</span>`
+            : `<span class="tag-warn">⚠ غير مكتمل — ${['٠','١','٢','٣','٤'][done]}/٤ أسئلة</span>`}
+        </div>
+      </div>
+      <div>
+        <div class="review-score">${avg > 0 ? avg.toFixed(1) : '—'}<span>/5</span></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// =================== LOADING OVERLAY ===================
+function showLoading(onDone) {
+  const overlay = document.getElementById('loading-overlay');
+  const fill    = document.getElementById('loader-prog-fill');
+  const pct     = document.getElementById('loader-prog-pct');
+  overlay.classList.add('show');
+
+  let progress = 0;
+  const steps = [
+    {target:28,  delay:420},
+    {target:57,  delay:360},
+    {target:84,  delay:340},
+    {target:100, delay:280}
+  ];
+  let i = 0;
+  function step() {
+    if (i >= steps.length) {
+      setTimeout(() => {
+        overlay.classList.remove('show');
+        setTimeout(onDone, 400);
+      }, 250);
+      return;
+    }
+    const s = steps[i++];
+    const start = progress, end = s.target, dur = s.delay, t0 = performance.now();
+    function animate(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      const cur = Math.round(start + (end - start) * p);
+      fill.style.width = cur + '%';
+      pct.textContent  = cur + '%';
+      if (p < 1) requestAnimationFrame(animate);
+      else { progress = end; setTimeout(step, 70); }
+    }
+    requestAnimationFrame(animate);
+  }
+  step();
+}
+
+// =================== RESULTS ===================
+function getLvlIdx(sc) {
+  return sc < 1.5 ? 0 : sc < 2.5 ? 1 : sc < 3.5 ? 2 : sc < 4.5 ? 3 : 4;
+}
+
+let _axisScores = [];
+let _overall    = 0;
+
+function showResults() {
+  const incomplete = AXES.filter((_, ai) => {
+    const start = ai * 4;
+    return answers.slice(start, start + 4).some(v => v === 0);
+  });
+  if (incomplete.length > 0) {
+    const names = incomplete.map(ax => ax.name).join('، ');
+    showToast('تنبيه: هناك أسئلة لم يتم الإجابة عليها في: ' + names, 'warning');
+  }
+
+  showLoading(() => {
+    _axisScores = AXES.map((_, ai) => {
+      const start = ai * 4;
+      const vals  = answers.slice(start, start + 4).filter(v => v > 0);
+      return vals.length ? vals.reduce((a,b) => a+b, 0) / vals.length : 0;
+    });
+    _overall = _axisScores.reduce((a,b) => a+b, 0) / _axisScores.length;
+    const oli = getLvlIdx(_overall);
+
+    document.getElementById('r-score').textContent = _overall.toFixed(1);
+    const badge = document.getElementById('r-badge');
+    badge.textContent      = LVL[oli];
+    badge.style.background = LVL_BG[oli];
+    badge.style.color      = LVL_TEXT[oli];
+
+    document.getElementById('r-grid').innerHTML = AXES.map((ax, ai) => {
+      const sc  = _axisScores[ai];
+      const li  = getLvlIdx(sc);
+      const pct = Math.round((sc / 5) * 100);
+      return `<div class="res-card">
+        <div class="res-card-top">
+          <div class="res-card-name">${ax.name}</div>
+          <div class="res-card-score" style="color:${LVL_TEXT[li]}">${sc > 0 ? sc.toFixed(1) : '—'}</div>
+        </div>
+        <div class="res-bar-track">
+          <div class="res-bar-fill" style="width:${pct}%;background:${LVL_BAR[li]}"></div>
+        </div>
+        <div class="res-card-level" style="color:${LVL_TEXT[li]}">${sc > 0 ? LVL[li] : 'لم يتم الإجابة'}</div>
+      </div>`;
+    }).join('');
+
+    goTo('s-results');
+  });
+}
+
+// =================== PDF — HTML PRINT WINDOW ===================
+function downloadPDF() {
+  const btn = document.getElementById('btn-pdf');
+  btn.classList.add('loading');
+  btn.textContent = 'جاري الإنشاء...';
+
+  const orgName = document.getElementById('f-org').value  || '—';
+  const repName = document.getElementById('f-rep').value  || '—';
+  const dateVal = document.getElementById('f-date').value || new Date().toISOString().slice(0,10);
+  const oli     = getLvlIdx(_overall);
+
+  const LVL_COLORS = ['#A32D2D','#633806','#0C447C','#085041','#27500A'];
+  const LVL_BGS    = ['#FCEBEB','#FAEEDA','#E6F1FB','#E1F5EE','#EAF3DE'];
+  const BAR_COLORS = ['#E24B4A','#EF9F27','#378ADD','#1D9E75','#639922'];
+
+  const axesRows = AXES.map((ax, ai) => {
+    const sc  = _axisScores[ai];
+    const li  = getLvlIdx(sc);
+    const pct = Math.round((sc / 5) * 100);
+    const rowBg = ai % 2 === 0 ? '#F7F7F5' : '#FFFFFF';
+    return `
+      <tr style="background:${rowBg}">
+        <td style="padding:9px 14px;font-size:13px;color:#2C2C2A;border-bottom:1px solid #EEECEA;text-align:right">${ax.name}</td>
+        <td style="padding:9px 14px;font-size:14px;font-weight:700;color:${LVL_COLORS[li]};border-bottom:1px solid #EEECEA;text-align:center">${sc > 0 ? sc.toFixed(1) : '—'}</td>
+        <td style="padding:9px 14px;font-size:12px;font-weight:600;color:${LVL_COLORS[li]};border-bottom:1px solid #EEECEA;text-align:center">${sc > 0 ? LVL[li] : '—'}</td>
+        <td style="padding:9px 14px;border-bottom:1px solid #EEECEA">
+          <div style="background:#E8E8E4;border-radius:99px;height:7px;overflow:hidden;width:120px;margin:0 auto">
+            <div style="width:${pct}%;height:100%;background:${BAR_COLORS[li]};border-radius:99px"></div>
+          </div>
+        </td>
+      </tr>`;
+  }).join('');
+
+  const legendRows = [
+    {n:'١', name:'مبدئي',  desc:'لا توجد ممارسات رسمية أو جهود فردية متفرقة',  i:0},
+    {n:'٢', name:'متكرر',  desc:'ممارسات غير رسمية تعتمد على الجهود الفردية',   i:1},
+    {n:'٣', name:'محدد',   desc:'عمليات موثقة ومطبقة على مستوى الجهة',          i:2},
+    {n:'٤', name:'مُدار',  desc:'قياس وتحليل مستمر لدعم اتخاذ القرار',          i:3},
+    {n:'٥', name:'متقن',   desc:'تحسين مستمر مرتبط بالأهداف الاستراتيجية',      i:4}
+  ].map(l => `
+    <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #F0EDEA">
+      <div style="width:30px;height:30px;border-radius:8px;background:${LVL_BGS[l.i]};color:${LVL_COLORS[l.i]};display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0">${l.n}</div>
+      <div style="min-width:55px;font-weight:600;color:#2C2C2A;font-size:13px">${l.name}</div>
+      <div style="font-size:12px;color:#5F5E5A">${l.desc}</div>
+    </div>`).join('');
+
+  const html = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>تقرير تقييم النضج — ${orgName}</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Tajawal',sans-serif;direction:rtl;background:#fff;color:#2C2C2A;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @page{size:A4;margin:0}
+  @media print{body{margin:0}}
+</style>
+</head>
+<body style="padding:0;margin:0">
+
+  <!-- HEADER -->
+  <div style="background:#042C53;padding:28px 36px 22px;position:relative">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between">
+      <div>
+        <div style="font-size:8px;color:rgba(255,255,255,.5);letter-spacing:1.5px;margin-bottom:6px;text-transform:uppercase">STRATEGY & PERFORMANCE</div>
+        <div style="font-size:19px;font-weight:700;color:#fff;line-height:1.35">تقرير تقييم نضج<br>إدارة الاستراتيجية والأداء</div>
+        <div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.55)">نموذج تشخيصي مبدئي</div>
+      </div>
+      <div style="text-align:left;color:rgba(255,255,255,.6);font-size:11px;margin-top:4px">
+        <div style="margin-bottom:5px"><span style="color:rgba(255,255,255,.4)">التاريخ</span>&nbsp; ${dateVal}</div>
+        <div style="margin-bottom:5px"><span style="color:rgba(255,255,255,.4)">الجهة</span>&nbsp; <strong style="color:#fff">${orgName}</strong></div>
+        <div><span style="color:rgba(255,255,255,.4)">الممثل</span>&nbsp; ${repName}</div>
+      </div>
+    </div>
+    <div style="margin-top:18px;height:2px;background:linear-gradient(90deg,#1D9E75,rgba(255,255,255,.1))"></div>
+  </div>
+
+  <!-- BODY -->
+  <div style="padding:28px 36px">
+
+    <!-- OVERALL SCORE -->
+    <div style="background:${LVL_BGS[oli]};border:1.5px solid ${LVL_COLORS[oli]}33;border-radius:12px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+      <div>
+        <div style="font-size:11px;color:#5F5E5A;margin-bottom:4px">المتوسط العام لمستوى النضج</div>
+        <div style="font-size:44px;font-weight:700;color:${LVL_COLORS[oli]};line-height:1">${_overall.toFixed(1)}<span style="font-size:16px;color:#888;font-weight:400"> / 5</span></div>
+      </div>
+      <div style="text-align:center">
+        <div style="background:${LVL_COLORS[oli]};color:#fff;padding:8px 24px;border-radius:20px;font-size:14px;font-weight:700;margin-bottom:6px">${LVL[oli]}</div>
+        <div style="font-size:11px;color:#5F5E5A">مستوى النضج الإجمالي</div>
+      </div>
+    </div>
+
+    <!-- AXES TABLE -->
+    <div style="margin-bottom:24px">
+      <div style="font-size:13px;font-weight:700;color:#042C53;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #042C53">نتائج المحاور التفصيلية</div>
+      <table style="width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden">
+        <thead>
+          <tr style="background:#042C53">
+            <th style="padding:10px 14px;font-size:12px;color:#fff;font-weight:600;text-align:right">المحور</th>
+            <th style="padding:10px 14px;font-size:12px;color:#fff;font-weight:600;text-align:center;width:80px">المتوسط</th>
+            <th style="padding:10px 14px;font-size:12px;color:#fff;font-weight:600;text-align:center;width:100px">مستوى النضج</th>
+            <th style="padding:10px 14px;font-size:12px;color:#fff;font-weight:600;text-align:center;width:150px">المؤشر البياني</th>
+          </tr>
+        </thead>
+        <tbody>${axesRows}</tbody>
+      </table>
+    </div>
+
+    <!-- LEGEND -->
+    <div style="background:#F7F7F5;border-radius:10px;padding:16px 20px;margin-bottom:24px">
+      <div style="font-size:13px;font-weight:700;color:#042C53;margin-bottom:10px">دليل تفسير مستويات النضج</div>
+      ${legendRows}
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div style="background:#042C53;padding:12px 36px;display:flex;align-items:center;justify-content:space-between">
+    <div style="font-size:10px;color:rgba(255,255,255,.45)">${dateVal}</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.45)">أداة تقييم نضج إدارة الاستراتيجية والأداء</div>
+  </div>
+
+</body>
+</html>`;
+
+  const win = window.open('', '_blank', 'width=900,height=700');
+  win.document.write(html);
+  win.document.close();
+
+  // wait for fonts to load then print
+  win.onload = () => {
+    setTimeout(() => {
+      win.focus();
+      win.print();
+    }, 800);
+  };
+
+  btn.classList.remove('loading');
+  btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg> تحميل التقرير (PDF)`;
+  showToast('سيفتح نافذة الطباعة — اختر "حفظ كـ PDF"', 'success');
+}
+
+// =================== INIT ===================
+document.getElementById('f-date').value = new Date().toISOString().slice(0, 10);
+document.getElementById('btn-start').style.opacity = '0.4';
+</script>
+</body>
+</html>
